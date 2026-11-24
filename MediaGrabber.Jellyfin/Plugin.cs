@@ -29,7 +29,7 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
     public override Guid Id => PluginGuid;
 
     public override string Description =>
-        "MediaGrabber - Jellyfin Edition connects Jellyfin to your MediaGrabber server so you can queue YouTube, YouTube Music, Spotify, Instagram, and TikTok downloads, track progress, and manage jobs directly inside Jellyfin using a required MediaGrabber API key.";
+        "Queue YouTube, YouTube Music, Spotify, and social media downloads directly from Jellyfin into your MediaGrabber server.";
 
     public IEnumerable<PluginPageInfo> GetPages()
     {
@@ -39,7 +39,6 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
             new PluginPageInfo
             {
                 Name = Name,
-                DisplayName = "MediaGrabber Settings",
                 EmbeddedResourcePath = $"{ns}.Web.configPage.html"
             },
             new PluginPageInfo
@@ -48,7 +47,6 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
                 DisplayName = "MediaGrabber Downloader",
                 EnableInMainMenu = true,
                 MenuSection = "server",
-                MenuIcon = "cloud_download",
                 EmbeddedResourcePath = $"{ns}.Web.downloaderPage.html"
             }
         };
