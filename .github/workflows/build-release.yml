@@ -15,19 +15,19 @@ jobs:
           - series: "10.8"
             dotnet: "6.0.x"
             abi: "10.8.0.0"
-            version: "2.0.0.1"
+            version: "2.0.1.1"
           - series: "10.9"
             dotnet: "8.0.x"
             abi: "10.9.0.0"
-            version: "2.0.0.2"
+            version: "2.0.1.2"
           - series: "10.10"
             dotnet: "8.0.x"
             abi: "10.10.0.0"
-            version: "2.0.0.3"
+            version: "2.0.1.3"
           - series: "10.11"
             dotnet: "9.0.x"
             abi: "10.11.0.0"
-            version: "2.0.0.4"
+            version: "2.0.1.4"
 
     steps:
       - uses: actions/checkout@v4
@@ -47,19 +47,21 @@ jobs:
       - name: Package Jellyfin Plugin Zip
         run: |
           mkdir -p artifacts
+          cp logo.png out/${{ matrix.series }}/thumb.png
           cat > out/${{ matrix.series }}/meta.json <<EOF
           {
             "guid": "c7f3a1e4-9b2d-4c6f-a810-4e92d3b17c50",
             "name": "MediaGrabber",
-            "overview": "Download YouTube, Music, Spotify & Gallery media directly from Jellyfin.",
-            "description": "Connects Jellyfin to MediaGrabber with required API key auth.",
+            "overview": "Queue YouTube, YT Music, Spotify & gallery downloads directly from Jellyfin.",
+            "description": "MediaGrabber - Jellyfin Edition connects your Jellyfin dashboard directly to MediaGrabber with required download-scoped API key authentication.",
             "owner": "ai-mayhemyt",
             "category": "General",
+            "imagePath": "thumb.png",
             "version": "${{ matrix.version }}",
             "targetAbi": "${{ matrix.abi }}"
           }
           EOF
-          (cd out/${{ matrix.series }} && zip -r ../../artifacts/mediagrabber-jellyfin-${{ matrix.series }}.zip MediaGrabber.Jellyfin.dll meta.json)
+          (cd out/${{ matrix.series }} && zip -r ../../artifacts/mediagrabber-jellyfin-${{ matrix.series }}.zip MediaGrabber.Jellyfin.dll meta.json thumb.png)
 
       - uses: actions/upload-artifact@v4
         with:
